@@ -1,0 +1,25 @@
+# version: "3"
+services:
+  db:
+    image: mongo:latest
+    container_name: fuzz_db
+    volumes:
+      - ./mongo/init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+      - ./mongo/mongo-volume:/data/db
+    environment:
+      - MONGO_INITDB_DATABASE=fuzz
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=Pwd_5h0u1D_NO7_83_tO0_w3ak_7O0o0oooO00O
+    ports:
+      - "2777:27017"
+    restart: unless-stopped
+  listen_1:
+    build:
+      dockerfile: Dockerfile.listen
+      context: .
+    container_name: fuzz_listen_1
+    ports:
+      - "2778:8080"
+    depends_on:
+      - db
+    restart: unless-stopped
