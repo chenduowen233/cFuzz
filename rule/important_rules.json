@@ -1,0 +1,110 @@
+{
+    "http_methods": [
+        "GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS", "HEAD", "CONNECT", "TRACE"
+    ],
+    "headers": [
+        ":method", ":path", ":scheme", ":authority",
+        "user-agent", "accept", "accept-encoding", "accept-language",
+        "cache-control", "content-type", "forwarded", "referer", "origin",
+        "x-request-id", "x-forwarded-for", "x-forwarded-host", "x-forwarded-proto",
+        "host", "etag", "if-modified-since", "if-none-match", "authorization",
+        "proxy-authorization", "cookie", "set-cookie", "upgrade", "via",
+        "connection", "te", "accept-ch", "accept-datetime", "allow",
+        "alt-svc", "link", "pragma", "range", "trailer", "transfer-encoding",
+        "x-custom-header", "x-correlation-id", "x-real-ip", "x-content-type-options",
+        "x-frame-options", "x-xss-protection", "strict-transport-security"
+    ],
+    "schemes": ["http", "https"],
+    "path": [
+        "/", "/files/test.png", "/status", "/health",
+        "/data", "/search", "/login", "/files/1M.zip",
+        "/random/{random_id}", "/upload", "/download"
+    ],
+    "paths": [
+        "/", "/files/test.png", "/files/cloudflare.png",
+        "/data", "/files/1M.zip"
+    ],
+    "accept_values": [
+        "application/json", "application/xml", "text/html", "text/plain",
+        "image/png", "image/jpeg", "application/pdf", "application/javascript",
+        "application/x-www-form-urlencoded", "multipart/form-data", "*/*"
+    ],
+    "content_types": [
+        "application/json", "application/x-www-form-urlencoded",
+        "multipart/form-data", "text/plain", "application/xml",
+        "application/octet-stream", "text/html", "image/png"
+    ],
+    "languages": [
+        "en-US", "zh-CN", "fr-FR", "es-ES", "de-DE",
+        "it-IT", "ja-JP", "ko-KR", "ru-RU", "pt-BR"
+    ],
+    "user_agents": [
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+        "curl/7.68.0", "HTTPie/2.5.0", "PostmanRuntime/7.29.2",
+        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36",
+        "Mozilla/5.0 (Linux; Android 11; SM-G998B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Mobile Safari/537.36"
+    ],
+    "custom_headers": [
+        "X-Custom-Request-Id", "X-Custom-Token", "X-Custom-Session",
+        "X-Tracking-ID", "X-Request-Timestamp", "X-Real-Client-IP",
+        "X-Device-ID", "X-App-Version", "X-Environment"
+    ],
+    "parameter_names": [
+        "id", "type", "status", "version", "lang", "page", "limit",
+        "query", "sort", "timestamp"
+    ],
+    "parameter_values": [
+        "123", "active", "inactive", "1.0", "en", "fr", "zh", "es",
+        "10", "50", "2024-12-20T10:00:00Z", "true", "false", "pending"
+    ],
+    "forwarded_values": [
+        "for=192.0.2.43", "by=203.0.113.195", "host=example.com",
+        "proto=http", "proto=https"
+    ],
+    "cache_controls": [
+        "no-cache", "no-store", "max-age=0", "max-age=3600",
+        "private", "public", "must-revalidate"
+    ],
+    "cookie_values": [
+        "session_id=abc123; Secure; HttpOnly",
+        "csrftoken=abcd1234efgh5678; SameSite=Strict",
+        "userid=56789; Max-Age=3600",
+        "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    ],
+    "authorization_schemes": [
+        "Bearer", "Basic", "Digest", "OAuth",
+        "Mutual", "SCRAM-SHA-256", "HOBA", "vapid"
+    ],
+    "etag_values": [
+        "\"abc123\"", "\"xyz789\"", "W/\"123abc\"", "W/\"675f95be-1638\""
+    ],
+    "if_match_values": [
+        "\"abc123\"", "\"xyz789\"", "\"123abc, 789xyz\"", "\"675f95be-1638\""
+    ],
+    "if_none_match_values": [
+        "\"abc123\"", "\"xyz789\"", "\"123abc, 789xyz\"", "\"675f95be-1638\""
+    ],
+    "if_modified_since_values": [
+        "\"abc123\"", "\"123abc, 789xyz\"", "\"Mon, 16 Dec 2024 02:51:42 GMT\"", "\"Thu, 08 Apr 2023 06:08:50 GMT\""
+    ],
+    "if_unmodified_since_values": [
+        "\"abc123\"", "\"123abc, 789xyz\"", "\"Mon, 16 Dec 2024 02:51:42 GMT\"", "\"Thu, 08 Apr 2023 06:08:50 GMT\""
+    ],
+    "if_range_values": [
+        "\"abc123\"", "\"xyz789\"", "\"123abc, 789xyz\"", "\"675f95be-1638\""
+    ],
+    "range_values": [
+        "bytes=1-1", "bytes=0-1", "bytes=1-1-1-1", "bytes=11451-11452", "bytes=0-1,2-3,4-5", "bytes=0-1,111111-111112,333444-333445"
+    ],
+    "accept-encoding": [
+        "gzip", "deflate", "br", "compress", "identity", "sdch", "gzip/br", "aaabc"
+    ],
+    "content-length-values": [
+        "0",
+        "1234567890987",
+        "9999999999",
+        "__CONTENT_LENGTH_+1__",
+        "__CONTENT_LENGTH_-1__",
+        "__CONTENT_LENGTH__"
+    ]
+}

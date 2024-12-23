@@ -5,17 +5,16 @@ import re
 import os
 import json
 import pymongo
-from utils.config import mongodb_cli
+#from utils.config import mongodb_cli
 from generator import generate_request
+from collections.abc import MutableSet
 
-db = pymongo.MongoClient(mongodb_cli)["fuzz"]
-db_reqs = db["request"]
-db_reps = db["response"]
-db_diff = db["diff"]
-
+# db = pymongo.MongoClient(mongodb_cli)["fuzz"]
+# db_reqs = db["request"]
+# db_reps = db["response"]
+# db_diff = db["diff"]
 # 目标服务器信息
 HOST = "tbg.iinfinity.cn"
-PORT = 443
 
 def placeholder(packet, token):
     """用于占位符替换的函数，可以扩展"""
@@ -46,9 +45,13 @@ async def send_request():
     """生成请求、发送 HTTP/2 请求，并存储结果到数据库"""
     try:
         # 使用 httpx 客户端
-        async with httpx.AsyncClient(http2=True) as client:
+        async with httpx.AsyncClient(http2=True, verify=False) as client:
             # 从 generator 获取请求头和体
             headers, body = generate_request()
+            # 提取伪标头（:method, :path, :scheme）并移除它们
+            method = headers.pop(":method")
+            path = headers.pop(":path")
+            scheme = headers.pop(":scheme")
 
             # 生成随机 token 并添加到请求头
             token = os.urandom(8).hex()
@@ -61,29 +64,30 @@ async def send_request():
 
             # 发送请求
             response = await client.request(
-                method=headers[":method"],
-                url=f"https://{HOST}:{PORT}{headers[':path']}",
+                method=method,
+                url=f"https://{HOST}/{path}",
                 headers=headers,
                 content=body.encode('utf-8')
             )
 
             # 解析响应数据
-            response_data = await response.text()
+            print(response)  # 应该输出<class 'method'>
+            #response_data = await response.text()
             print(f"\nResponse Status: {response.status_code}")
             print("Response Headers:")
             for header, value in response.headers.items():
                 print(f"{header}: {value}")
             print("\nResponse Data:")
-            print(response_data)
+            #print(response_data)
             request_client = placeholder({"headers": headers, "body": body}, token)
-            store_request(token, request_client)
-            store_response(token, response_data)
+            # store_request(token, request_client)
+            # store_response(token, response_data)
     except Exception as e:
         print(f"Error: {e}")
 
 if __name__ == "__main__":
     import asyncio
     loop = asyncio.get_event_loop()
-    for i in range(5):  # 发送 5 次请求
+    for i in range(10):  # 发送 5 次请求
         print(f"\n=== Sending request {i + 1} ===")
         loop.run_until_complete(send_request())
