@@ -61,6 +61,7 @@ async def send_request():
 
             # 打印生成的请求
             print(f"\nSending HTTP/2 Request:")
+            print(f"path: {path}")
             print(f"Headers: {headers}")
             print(f"Body: {body}")
 
