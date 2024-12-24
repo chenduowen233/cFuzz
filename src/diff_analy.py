@@ -8,19 +8,18 @@ db_diff = db["diff"]
 
 def compare_requests_and_responses():
     for entry in db_reqs.find():
-        token = entry["X-Token"]
-        request_data = entry["request"]
-        response_data = entry["response"]
-
+        print(entry)
+    for entry in db_reps.find():
+        print(entry)
         # 查找源站响应
-        nginx_entry = db_reps.find_one({"X-Token": token})
-        if nginx_entry:
-            print(f"Token: {token}")
-            print("Client Request:", request_data)
-            print("Nginx Request:", nginx_entry["request"])
-            print("Client Response:", response_data)
-            print("Nginx Response:", nginx_entry["response"])
-            print("Differences:", compare_data(entry, nginx_entry))
+        # nginx_entry = db_reps.find_one({"X-Token": token})
+        # if nginx_entry:
+        #     print(f"Token: {token}")
+        #     print("Client Request:", request_data)
+        #     print("Nginx Request:", nginx_entry["request"])
+        #     print("Client Response:", response_data)
+        #     print("Nginx Response:", nginx_entry["response"])
+        #     print("Differences:", compare_data(entry, nginx_entry))
 
 def compare_data(client_entry, nginx_entry):
     # 简单对比实现，可根据需求增加差异分析的深度
