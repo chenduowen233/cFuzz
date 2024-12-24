@@ -12,9 +12,9 @@ db.createUser(
 )
 
 db.createCollection('request')
-db.request.createIndex({ token: 1 }, { unique: true })
+db.request.createIndex({ X-Token: 1 }, { unique: true })
 
 db.createCollection('response')
-db.response.createIndex({ token: 1 }, { unique: true })
+db.response.createIndex({ X-Token: 1 }, { unique: true })
 
 db.createCollection('diff')

@@ -126,6 +126,7 @@ def process_packet(packet):
             # 检查是否是 HTTP 请求
             if packet.haslayer(HTTPRequest):
                 http_request = packet[HTTPRequest]
+                print(http_request)
                 data = bytes(http_request).decode(errors="ignore")
                 token = extract_x_token(data)
                 if token:
@@ -134,6 +135,7 @@ def process_packet(packet):
             # 检查是否是 HTTP 响应
             elif packet.haslayer(HTTPResponse):
                 http_response = packet[HTTPResponse]
+                print(http_response)
                 data = bytes(http_response).decode(errors="ignore")
                 token = extract_x_token(data)
                 if token:

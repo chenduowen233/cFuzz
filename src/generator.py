@@ -57,8 +57,13 @@ def generate_headers(rules):
 
     # 自定义头部
     for _ in range(random.randint(1, 5)):
-        custom_header = random.choice(rules["custom_headers"])
-        headers[custom_header] = random.choice(rules["parameter_values"])
+        cd_header = random.choices([True, False], weights=[7, 3])[0]
+        if cd_header:
+            custom_header = random.choice(rules["custom_headers"])
+            headers[custom_header] = random.choice(rules["parameter_values"])
+        else:
+            dup_header = random.choice(rules["headers"])
+            headers[dup_header] = random.choice(rules["parameter_values"])
 
     return headers
 
@@ -79,11 +84,51 @@ def generate_body(content_type, rules):
         return " ".join(random.choices(rules["parameter_values"], k=random.randint(3, 10)))
     return ""
 
+# 变异请求头
+def mutate_headers(headers, rules):
+    mutated_headers = headers.copy()
+
+    for key in list(mutated_headers.keys()):
+        # 确定是变异 header 还是 value，2:8 的概率分布
+        mutate_header = random.choices([True, False], weights=[2, 8])[0]
+
+        if mutate_header:
+            # 对 header 名称进行变异
+            mutation_type = random.choices(["add_illegal", "delete", "replace", "none"], weights=[2, 2, 2, 4])[0]
+            if mutation_type == "add_illegal":
+                illegal_char = random.choice(rules["illegal_characters"])
+                new_key = key + illegal_char
+                mutated_headers[new_key] = mutated_headers.pop(key)
+            elif mutation_type == "delete" and len(key) > 0:
+                index = random.randint(0, len(key) - 1)
+                new_key = key[:index] + key[index + 1:]
+                mutated_headers[new_key] = mutated_headers.pop(key)
+            elif mutation_type == "replace" and len(key) > 0:
+                index = random.randint(0, len(key) - 1)
+                illegal_char = random.choice(rules["illegal_characters"])
+                new_key = key[:index] + illegal_char + key[index + 1:]
+                mutated_headers[new_key] = mutated_headers.pop(key)
+        else:
+            # 对 header value 进行变异
+            mutation_type = random.choices(["add_illegal", "delete", "replace", "none"], weights=[2, 2, 2, 4])[0]
+            if mutation_type == "add_illegal":
+                illegal_char = random.choice(rules["illegal_characters"])
+                mutated_headers[key] += illegal_char
+            elif mutation_type == "delete" and len(mutated_headers[key]) > 0:
+                index = random.randint(0, len(mutated_headers[key]) - 1)
+                mutated_headers[key] = mutated_headers[key][:index] + mutated_headers[key][index + 1:]
+            elif mutation_type == "replace" and len(mutated_headers[key]) > 0:
+                index = random.randint(0, len(mutated_headers[key]) - 1)
+                illegal_char = random.choice(rules["illegal_characters"])
+                mutated_headers[key] = mutated_headers[key][:index] + illegal_char + mutated_headers[key][index + 1:]
+
+    return mutated_headers
 
 # 生成完整 HTTP/2 请求
 def generate_request(file_path="../rule/important_rules.json"):
     rules = load_http2_rules(file_path)
     headers = generate_headers(rules)
+    headers = mutate_headers(headers, rules)  # 进行变异
     body = generate_body(headers["content-type"], rules)
     return headers, body
 

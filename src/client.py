@@ -9,10 +9,12 @@ import pymongo
 from generator import generate_request
 from collections.abc import MutableSet
 
-# db = pymongo.MongoClient(mongodb_cli)["fuzz"]
-# db_reqs = db["request"]
-# db_reps = db["response"]
-# db_diff = db["diff"]
+# 替换成你的 MongoDB 信息
+uri = "mongodb://user:Pwd_SH0U1D_NO7_bE_Too_W33k@8.219.161.121:2777/fuzz"
+db = pymongo.MongoClient(uri)["fuzz"]
+db_reqs = db["request"]
+db_reps = db["response"]
+db_diff = db["diff"]
 # 目标服务器信息
 HOST = "tbg.iinfinity.cn"
 
@@ -71,17 +73,17 @@ async def send_request():
             )
 
             # 解析响应数据
-            print(response)  # 应该输出<class 'method'>
-            #response_data = await response.text()
+            #print(response)  # 应该输出<class 'method'>
+            response_data = response.text
             print(f"\nResponse Status: {response.status_code}")
             print("Response Headers:")
             for header, value in response.headers.items():
                 print(f"{header}: {value}")
-            print("\nResponse Data:")
-            #print(response_data)
             request_client = placeholder({"headers": headers, "body": body}, token)
-            # store_request(token, request_client)
-            # store_response(token, response_data)
+            print(request_client)
+            print(response_data)
+            store_request(token, request_client)
+            store_response(token, response_data)
     except Exception as e:
         print(f"Error: {e}")
 

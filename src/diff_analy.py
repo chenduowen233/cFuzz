@@ -8,12 +8,12 @@ db_diff = db["diff"]
 
 def compare_requests_and_responses():
     for entry in db_reqs.find():
-        token = entry["token"]
+        token = entry["X-Token"]
         request_data = entry["request"]
         response_data = entry["response"]
 
         # 查找源站响应
-        nginx_entry = db_reps.find_one({"token": token})
+        nginx_entry = db_reps.find_one({"X-Token": token})
         if nginx_entry:
             print(f"Token: {token}")
             print("Client Request:", request_data)

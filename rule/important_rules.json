@@ -76,22 +76,22 @@
         "Mutual", "SCRAM-SHA-256", "HOBA", "vapid"
     ],
     "etag_values": [
-        "\"abc123\"", "\"xyz789\"", "W/\"123abc\"", "W/\"675f95be-1638\""
+        "abc123", "xyz789", "W/123abc", "W/675f95be-1638"
     ],
     "if_match_values": [
-        "\"abc123\"", "\"xyz789\"", "\"123abc, 789xyz\"", "\"675f95be-1638\""
+        "abc123", "xyz789", "123abc, 789xyz", "675f95be-1638"
     ],
     "if_none_match_values": [
-        "\"abc123\"", "\"xyz789\"", "\"123abc, 789xyz\"", "\"675f95be-1638\""
+        "abc123", "xyz789", "123abc, 789xyz", "675f95be-1638"
     ],
     "if_modified_since_values": [
-        "\"abc123\"", "\"123abc, 789xyz\"", "\"Mon, 16 Dec 2024 02:51:42 GMT\"", "\"Thu, 08 Apr 2023 06:08:50 GMT\""
+        "abc123", "123abc, 789xyz", "Mon, 16 Dec 2024 02:51:42 GMT", "Thu, 08 Apr 2023 06:08:50 GMT"
     ],
     "if_unmodified_since_values": [
-        "\"abc123\"", "\"123abc, 789xyz\"", "\"Mon, 16 Dec 2024 02:51:42 GMT\"", "\"Thu, 08 Apr 2023 06:08:50 GMT\""
+        "abc123", "123abc, 789xyz", "Mon, 16 Dec 2024 02:51:42 GMT", "Thu, 08 Apr 2023 06:08:50 GMT"
     ],
     "if_range_values": [
-        "\"abc123\"", "\"xyz789\"", "\"123abc, 789xyz\"", "\"675f95be-1638\""
+        "abc123", "xyz789", "123abc, 789xyz", "675f95be-1638"
     ],
     "range_values": [
         "bytes=1-1", "bytes=0-1", "bytes=1-1-1-1", "bytes=11451-11452", "bytes=0-1,2-3,4-5", "bytes=0-1,111111-111112,333444-333445"
@@ -106,5 +106,10 @@
         "__CONTENT_LENGTH_+1__",
         "__CONTENT_LENGTH_-1__",
         "__CONTENT_LENGTH__"
+    ],
+    "illegal_characters": [
+        "\\x00", "\\x01", "\\x02", "\\x03", "\\x04", "\\x05", "\\x06", "\\x07", "\\x08", "\\x0b", "\\x0c", "\\x0e", "\\x0f",
+        "\\x10", "\\x11", "\\x12", "\\x13", "\\x14", "\\x15", "\\x16", "\\x17", "\\x18", "\\x19", "\\x1a", "\\x1b", "\\x1c", "\\x1d", "\\x1e", "\\x1f",
+        "\\", "\"", "\\'", "\t", "\n", "\r", "\b", "\f", "�", "//", "/a", "/n", "\\n", "\\r", "\\t", "-", "_", "@", "#", "$", "%", "&", "*", "(", ")", "]"
     ]
 }
